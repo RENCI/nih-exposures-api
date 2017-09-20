@@ -1,0 +1,3 @@
+exposureType,exposureUnit,startDate,endDate,resolution,aggregation
+pm25,ugm3,2011-01-01,2011-12-31,hour;day;7day;14day,max;avg
+o3,ppm,2011-01-01,2011-12-31,hour;day;7day;14day,max;avg
