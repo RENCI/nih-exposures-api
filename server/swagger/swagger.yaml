@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Environmental Exposures API"
-  version: "1.0.0"
+  version: "0.0.1"
   title: "Environmental Exposures API"
   termsOfService: "None"
   contact:
@@ -50,9 +50,10 @@ paths:
         \ latLon - latitude, longitude of exposure (multiples to be\nseperated by\
         \ semicolon \";\")\n- {string} - resolution - temporal resolution (hour, day,\
         \ 7day, 14day), default day\n- {string} - aggregation - numerical aggrigation\
-        \ (max, avg), default max\n- {string} - utcOffset - hour offset from UTC (-12\
-        \ to +14), default 0\n  \n@return \n- {JSON object} values - returns array\
-        \ of exposure values based on date range and location\n"
+        \ (max, avg), default max\n- {string} - utcOffset - timezone offset from UTC\
+        \ (utc, eastern, central, mountain, pacific) - default=utc\n  \n@return \n\
+        - {JSON object} values - returns array of exposure values based on date range\
+        \ and location\n"
       operationId: "controllers.default_controller.cmaq_get_values_get"
       produces:
       - "application/json"
@@ -120,9 +121,10 @@ paths:
         \ latLon - latitude, longitude of exposure (multiples to be seperated by semicolon\
         \ \";\")\n- {string} - resolution - temporal resolution (hour, day, 7day,\
         \ 14day), default day\n- {string} - aggregation - numerical aggrigation (max,\
-        \ avg), default max\n- {string} - utcOffset - hour offset from UTC (-12 to\
-        \ +14), default 0\n\n@return \n- {JSON object} scores - returns array of exposure\
-        \ scores based on date range and location\n"
+        \ avg), default max\n- {string} - utcOffset - timezone offset from UTC (utc,\
+        \ eastern, central, mountain, pacific) - default=utc\n\n@return \n- {JSON\
+        \ object} scores - returns array of exposure scores based on date range and\
+        \ location\n"
       operationId: "controllers.default_controller.cmaq_get_scores_get"
       produces:
       - "application/json"
