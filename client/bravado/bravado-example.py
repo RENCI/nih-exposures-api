@@ -9,7 +9,7 @@ import datetime
 from pprint import pprint
 
 local_swagger = 'PATH_TO/nih-exposures-api/specification/swagger.yml'
-github_swagger = 'https://github.com/RENCI/nih-exposures-api/blob/master/specification/swagger.yml'
+github_swagger = 'https://raw.githubusercontent.com/RENCI/nih-exposures-api/master/specification/swagger.yml'
 
 # defaults to github_swagger, but should be changed to local_swagger if doing development work
 client = SwaggerClient.from_url(
