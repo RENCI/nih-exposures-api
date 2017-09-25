@@ -115,7 +115,7 @@ class CmaqExposures(object):
             while exposure_time <= (end_time + timedelta(hours=23)):
                 data['scores'] += [{'dateTime': exposure_time,
                                     'latLon': lat_lon,
-                                    'score': round(uniform(1,5),4)}]
+                                    'score': str(round(uniform(1,5),4))}]
                 exposure_time += timedelta(hours=time_delta)
 
         return jsonify(data)
@@ -156,7 +156,7 @@ class CmaqExposures(object):
                     exp_val = round(uniform(0, 0.2), 4)
                 data['values'] += [{'dateTime': exposure_time,
                                     'latLon': lat_lon,
-                                    'value': exp_val}]
+                                    'value': str(exp_val)}]
                 exposure_time += timedelta(hours=time_delta)
 
         return jsonify(data)

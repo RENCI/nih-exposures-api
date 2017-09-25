@@ -11,7 +11,7 @@ info:
   license:
     name: MIT
     url: 'http://opensource.org/licenses/MIT'
-host: 'localhost:5000'
+host: 'exposures.renci.org'
 basePath: /v1
 schemes:
   - https
@@ -68,9 +68,8 @@ paths:
       summary: get values for exposure type at location for date range
       description: >
         get values for exposure type at location for date range
-
+        
         @param 
-
         - {string} exposureType - unique exposure type in CMAQ
 
         - {date} startDate - start date of exposure
@@ -132,9 +131,8 @@ paths:
       summary: get score for exposure type at location for date range
       description: >
         get score for exposure type at location for date range
-
+        
         @param 
-
         - {string} exposureType - unique exposure type in CMAQ
 
         - {date} startDate - start date of exposure

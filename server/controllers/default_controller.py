@@ -19,8 +19,8 @@ def cmaq_get() -> str:
                                   exposureUnit=o.exposure_unit,
                                   startDate=o.start_date,
                                   endDate=o.end_date,
-                                  resolution=[o.resolution.split(';')],
-                                  aggregation=[o.aggregation.split(';')]) for o in results]})
+                                  resolution=o.resolution.split(';'),
+                                  aggregation=o.aggregation.split(';')) for o in results]})
     return data
 
 
