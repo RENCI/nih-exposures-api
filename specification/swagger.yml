@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 1.0.0
+  version: 0.0.1
   title: Environmental Exposures API
   description: Environmental Exposures API
   termsOfService: None
@@ -86,7 +86,8 @@ paths:
 
         - {string} - aggregation - numerical aggrigation (max, avg), default max
 
-        - {string} - utcOffset - hour offset from UTC (-12 to +14), default 0
+        - {string} - utcOffset - timezone offset from UTC (utc, eastern,
+        central, mountain, pacific) - default=utc
           
         @return 
 
@@ -148,7 +149,8 @@ paths:
 
         - {string} - aggregation - numerical aggrigation (max, avg), default max
 
-        - {string} - utcOffset - hour offset from UTC (-12 to +14), default 0
+        - {string} - utcOffset - timezone offset from UTC (utc, eastern,
+        central, mountain, pacific) - default=utc
 
 
         @return 
@@ -233,8 +235,9 @@ parameters:
   cmaq_utcOffset:
     name: utcOffset
     in: query
-    description: hour offset from UTC (-12 to 14) - default=0
+    description: >-
+      timezone offset from UTC (utc, eastern, central, mountain, pacific) -
+      default=utc
     required: false
-    type: integer
-    format: int32
-    default: 0
+    type: string
+    default: utc
