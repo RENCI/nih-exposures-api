@@ -12,7 +12,7 @@ info:
   license:
     name: "MIT"
     url: "http://opensource.org/licenses/MIT"
-host: "localhost:5000"
+host: "exposures.renci.org"
 basePath: "/v1"
 schemes:
 - "https"
@@ -45,7 +45,7 @@ paths:
       - "default"
       summary: "get values for exposure type at location for date range"
       description: "get values for exposure type at location for date range\n@param\
-        \ \n- {string} exposureType - unique exposure type in CMAQ\n- {date} startDate\
+        \  - {string} exposureType - unique exposure type in CMAQ\n- {date} startDate\
         \ - start date of exposure\n- {date} endDate - end date of exposure\n- {string}\
         \ latLon - latitude, longitude of exposure (multiples to be\nseperated by\
         \ semicolon \";\")\n- {string} - resolution - temporal resolution (hour, day,\
@@ -116,7 +116,7 @@ paths:
       - "default"
       summary: "get score for exposure type at location for date range"
       description: "get score for exposure type at location for date range\n@param\
-        \ \n- {string} exposureType - unique exposure type in CMAQ\n- {date} startDate\
+        \  - {string} exposureType - unique exposure type in CMAQ\n- {date} startDate\
         \ - start date of exposure\n- {date} endDate - end date of exposure\n- {string}\
         \ latLon - latitude, longitude of exposure (multiples to be seperated by semicolon\
         \ \";\")\n- {string} - resolution - temporal resolution (hour, day, 7day,\
