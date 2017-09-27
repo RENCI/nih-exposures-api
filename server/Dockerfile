@@ -19,6 +19,7 @@ ENV POSTGRES_DATABASE=exposures
 ENV POSTGRES_USERNAME=datatrans
 ENV POSTGRES_PASSWORD=datatrans
 ENV POSTGRES_IP=''
+ENV SWAGGER_HOST=localhost:5000
 
 COPY . /nih-exposures
 WORKDIR /nih-exposures

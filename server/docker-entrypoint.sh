@@ -38,13 +38,8 @@ if [[ "$1" = 'app.py' ]]; then
     _set_connection_ini
 
     # update swagger.yaml file
-    if [[ -z ${API_SERVER_HOST} ]]; then
-        if [[ -z ${API_SERVER_PORT} ]]; then
-            API_HOST_PORT=${API_SERVER_HOST}':'${API_SERVER_PORT}
-        else
-            API_HOST_PORT=${API_SERVER_HOST}
-        fi
-        sed -i 's/host.*/host: \"'${API_HOST_PORT}'\"/g' /nih-exposures/swagger/swagger.yaml
+    if [[ ! -z ${SWAGGER_HOST} ]]; then
+        sed -i 's/host.*/host: \"'${SWAGGER_HOST}'\"/g' /nih-exposures/swagger/swagger.yaml
     fi
 
     # update /etc/hosts if POSTGRES_IP is passed in
