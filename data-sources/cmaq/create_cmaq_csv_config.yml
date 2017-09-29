@@ -1,10 +1,21 @@
 # config data for create_cmaq_csv.py application
 
+cmaq2010:
+    netcdf-path: /projects/datatrans/CMAQ/2010/raw/  # must end with /
+    netcdf-file-name: CCTM_v502_with_CDC2010_Linux2_x86_64intel.ACONC.20100101.combine_base 
+    netcdf-file-pattern-match: .*\.combine_base
+    netcdf-file-date-partno: 2 
+    out-csv-path: /projects/datatrans/CMAQ/2010/csv/  # must end with /
+    out-csv-file-name: cmaq
+    data-vars: # enter data vars of interest in CMAQ 2010 netCDF files
+       - O3
+       - PMIJ
 cmaq2011:
-    netcdf-path: /Users/${USER}/CMAQ/2011/  # must end with /
+    netcdf-path: /projects/datatrans/CMAQ/2011/raw/  # must end with /
     netcdf-file-name: CCTM_CMAQ_v51_Release_Oct23_NoDust_ed_emis_combine.aconc.01
-    out-csv-path: /Users/${USER}/CMAQ/2011/  # must end with /
-    out-csv-file-name: cmaq2011.csv
+    netcdf-file-pattern-match: CCTM_CMAQ_v51_Release_Oct23_NoDust_ed_emis_combine\.aconc\.0[1-9]|1[0-2]
+    out-csv-path: /projects/datatrans/CMAQ/2011/csv/  # must end with /
+    out-csv-file-name: cmaq2011
     data-vars: # enter data vars of interest in CMAQ 2011 netCDF files
        - O3
        - PMIJ
