@@ -35,6 +35,7 @@ cmaq/getValues
 
 ```
 @description - get values for exposure type at location for date range
+
 @param 
 	- {string} exposureType - unique exposure type in CMAQ
 	- {date} startDate - start date of exposure
@@ -42,7 +43,8 @@ cmaq/getValues
 	- {string} latLon - latitude, longitude of exposure (multiples to be seperated by semicolon ";")
 	- {string} - resolution - temporal resolution (hour, day), default day
 	- {string} - aggregation - numerical aggrigation (max, avg), default max
-	- {integer} - utcOffset - hour offset from UTC (-12 to +14), default 0
+	- {string} - utcOffset - timezone offset from UTC (utc, eastern, central, mountain, pacific) - default=utc
+
 @return 
 	- {JSON object} values - returns array of exposure values based on date range and location
 
@@ -61,6 +63,7 @@ cmaq/getScores
 
 ```
 @description - get score for exposure type at location for date range
+
 @param 
 	- {string} exposureType - unique exposure type in CMAQ
 	- {date} startDate - start date of exposure
@@ -68,7 +71,8 @@ cmaq/getScores
 	- {string} latLon - latitude, longitude of exposure (multiples to be seperated by semicolon ";")
 	- {string} - resolution - temporal resolution (hour, day), default day
 	- {string} - aggregation - numerical aggrigation (max, avg), default max
-	- {integer} - utcOffset - hour offset from UTC (-12 to +14), default 0
+	- {string} - utcOffset - timezone offset from UTC (utc, eastern, central, mountain, pacific) - default=utc
+
 @return 
 	- {JSON object} scores - returns array of exposure scores based on date range and location
 

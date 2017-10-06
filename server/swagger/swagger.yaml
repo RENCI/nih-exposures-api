@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Environmental Exposures API"
-  version: "1.0.0"
+  version: "0.0.1"
   title: "Environmental Exposures API"
   termsOfService: "None"
   contact:
@@ -12,7 +12,7 @@ info:
   license:
     name: "MIT"
     url: "http://opensource.org/licenses/MIT"
-host: "localhost:5000"
+host: "exposures.renci.org"
 basePath: "/v1"
 schemes:
 - "https"
@@ -25,6 +25,8 @@ paths:
       description: "list of CMAQ exposures\n@param \n- None\n\n@return \n- {JSON object}\
         \ cmaq - returns array of exposure objects available from\n"
       operationId: "controllers.default_controller.cmaq_get"
+      produces:
+      - "application/json"
       parameters: []
       responses:
         200:
@@ -43,14 +45,15 @@ paths:
       - "default"
       summary: "get values for exposure type at location for date range"
       description: "get values for exposure type at location for date range\n@param\
-        \ \n- {string} exposureType - unique exposure type in CMAQ\n- {date} startDate\
+        \  - {string} exposureType - unique exposure type in CMAQ\n- {date} startDate\
         \ - start date of exposure\n- {date} endDate - end date of exposure\n- {string}\
         \ latLon - latitude, longitude of exposure (multiples to be\nseperated by\
-        \ semicolon \";\")\n- {string} - resolution - temporal resolution (hour, day),\
-        \ default day\n- {string} - aggregation - numerical aggrigation (max, avg),\
-        \ default max\n- {string} - utcOffset - hour offset from UTC (-12 to +14),\
-        \ default 0 or Z\n  \n@return \n- {JSON object} values - returns array of\
-        \ exposure values based on date range and location\n"
+        \ semicolon \";\")\n- {string} - resolution - temporal resolution (hour, day,\
+        \ 7day, 14day), default day\n- {string} - aggregation - numerical aggrigation\
+        \ (max, avg), default max\n- {string} - utcOffset - timezone offset from UTC\
+        \ (utc, eastern, central, mountain, pacific) - default=utc\n  \n@return \n\
+        - {JSON object} values - returns array of exposure values based on date range\
+        \ and location\n"
       operationId: "controllers.default_controller.cmaq_get_values_get"
       produces:
       - "application/json"
@@ -91,11 +94,11 @@ paths:
         default: "max"
       - name: "utcOffset"
         in: "query"
-        description: "hour offset from UTC (-12 to 14) - default=0"
+        description: "timezone offset from UTC (utc, eastern, central, mountain, pacific)\
+          \ - default=utc"
         required: false
-        type: "integer"
-        default: 0
-        format: "int32"
+        type: "string"
+        default: "utc"
       responses:
         200:
           description: "OK"
@@ -113,14 +116,15 @@ paths:
       - "default"
       summary: "get score for exposure type at location for date range"
       description: "get score for exposure type at location for date range\n@param\
-        \ \n- {string} exposureType - unique exposure type in CMAQ\n- {date} startDate\
+        \  - {string} exposureType - unique exposure type in CMAQ\n- {date} startDate\
         \ - start date of exposure\n- {date} endDate - end date of exposure\n- {string}\
         \ latLon - latitude, longitude of exposure (multiples to be seperated by semicolon\
-        \ \";\")\n- {string} - resolution - temporal resolution (hour, day), default\
-        \ day\n- {string} - aggregation - numerical aggrigation (max, avg), default\
-        \ max\n- {string} - utcOffset - hour offset from UTC (-12 to +14), default\
-        \ 0 or Z\n\n@return \n- {JSON object} scores - returns array of exposure scores\
-        \ based on date range and location\n"
+        \ \";\")\n- {string} - resolution - temporal resolution (hour, day, 7day,\
+        \ 14day), default day\n- {string} - aggregation - numerical aggrigation (max,\
+        \ avg), default max\n- {string} - utcOffset - timezone offset from UTC (utc,\
+        \ eastern, central, mountain, pacific) - default=utc\n\n@return \n- {JSON\
+        \ object} scores - returns array of exposure scores based on date range and\
+        \ location\n"
       operationId: "controllers.default_controller.cmaq_get_scores_get"
       produces:
       - "application/json"
@@ -161,11 +165,11 @@ paths:
         default: "max"
       - name: "utcOffset"
         in: "query"
-        description: "hour offset from UTC (-12 to 14) - default=0"
+        description: "timezone offset from UTC (utc, eastern, central, mountain, pacific)\
+          \ - default=utc"
         required: false
-        type: "integer"
-        default: 0
-        format: "int32"
+        type: "string"
+        default: "utc"
       responses:
         200:
           description: "OK"
@@ -278,8 +282,8 @@ parameters:
   cmaq_utcOffset:
     name: "utcOffset"
     in: "query"
-    description: "hour offset from UTC (-12 to 14) - default=0"
+    description: "timezone offset from UTC (utc, eastern, central, mountain, pacific)\
+      \ - default=utc"
     required: false
-    type: "integer"
-    default: 0
-    format: "int32"
+    type: "string"
+    default: "utc"
