@@ -1,16 +1,7 @@
 #!/usr/bin/env bash
 
-# remove pre-existing database and deploy new
-cd ../database/
-./remove-database.sh
-./run-database.sh
-cd -
-sleep 10s
-
-# setup database
-cd ../data-sample/
-./setup-exposures-db.sh
-cd -
+docker stop database
+docker start database
 
 # deploy cmaq-list
 cd ../data-sample/cmaq/exposures-list/
