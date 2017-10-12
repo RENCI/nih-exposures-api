@@ -69,4 +69,15 @@ def latlon2rowcol(latitude, longitude, year):
             column_no=int(abs((xorig)-x1)/xcell) + 1
             row_no=int((abs(yorig)+y1)/ycell) + 1
 
+        ### MOCK ###
+        import random
+        if year == '2011':
+            row_no = random.randint(1,299)
+            col_no = random.randint(1,459)
+        else:
+            row_no = random.randint(1, 112)
+            col_no = random.randint(1, 148)
+
+        print('MOCK: row = ' + str(row_no) + ', col = ' + str(col_no))
+
         return row_no, col_no 

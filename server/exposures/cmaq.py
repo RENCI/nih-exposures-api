@@ -6,7 +6,7 @@ from configparser import ConfigParser
 from flask import jsonify
 from controllers import Session
 import json
-from .cmaq_utils import latlon2rowcol
+from exposures.cmaq_utils import latlon2rowcol
 from random import uniform
 
 parser = ConfigParser()
@@ -35,37 +35,14 @@ class CmaqExposures(object):
             return True
 
     def is_valid_lat_lon(self, **kwargs):
-        (valid_points, message, pt) = self.validate_coordinate_point(**kwargs)
-	
-        return valid_points
-        
-    def validate_coordinate_point(self, **args):
-        session = Session()
-        latlon = session.query(CmaqExposuresList.resolution).filter(
-            CmaqExposuresList.latLon == args.get('exposureType')).one()
-        session.close()
-
-        # if lat is populated - make sure lon is too - and vise versa
-        try:
-            y, x =  latlon.split(",")
-        except:
-            return False, ('Not Found', 400, {'x-error': 'Both latitude and longitude must be specified to search for'
-                                                         ' a point'}), []
-        lat = float(y)
-        lon = float(x)
-        pt = [lat, lon]
-
-        # check format of coordinates, if provided
-        if lat is not None and len is not None:
-            # check latitude
-            if re.match("^(\+|-)?(?:90(?:(?:\.0{1,})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,})?))$", lat) is None:
-                return False, ('Not Found', 400, {'x-error': 'Invalid latitude'}), []
-
-            # check longitude
-            if re.match("^(\+|-)?(?:180(?:(?:\.0{1,})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,})?))$", lon) is None:
-                return False, ('Not Found', 400, {'x-error': 'Invalid longitude'}), []
-
-        return True, '', pt
+        # lat: 0 to +/- 90, lon: 0 to +/- 180 as lat,lon
+        import re
+        latlon = kwargs.get('latLon')
+        for item in latlon.split(';'):
+            if re.match(r'^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$',
+                        item) is None:
+                return False
+        return True
 
     def is_valid_resolution(self, **kwargs):
         res_set = set()
@@ -179,6 +156,8 @@ class CmaqExposures(object):
         for lat_lon in lat_lon_set:
             exposure_time = tzone.localize(datetime.strptime(kwargs.get('startDate'), "%Y-%m-%d"))
             end_time = tzone.localize(datetime.strptime(kwargs.get('endDate'), "%Y-%m-%d"))
+            coords = lat_lon.split(',')
+            row, col = latlon2rowcol(float(coords[0]), float(coords[1]), str(exposure_time.year))
 
             while exposure_time <= (end_time + timedelta(hours=23)):
                 if kwargs.get('exposureType') == 'pm25':
