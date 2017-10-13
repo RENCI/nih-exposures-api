@@ -8,7 +8,7 @@ echo '' >> cmaq-functions.sql
 echo '\di;' >> cmaq-functions.sql
 echo '' >> cmaq-functions.sql
 cat cmaq-grid-size.sql >> cmaq-functions.sql
-cat cmaq-o3-pmij-stats.sql >> cmaq-functions.sql
+cat cmaq-o3-pmij-stats-row.sql >> cmaq-functions.sql
 echo '' >> cmaq-functions.sql
 echo '\df cmaq*;' >> cmaq-functions.sql
 echo '' >> cmaq-functions.sql
