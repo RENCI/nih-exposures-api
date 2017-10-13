@@ -6,7 +6,7 @@ if [[ "${1}" == '2010' ]]; then
 else
     MIN_ROW=1
     MAX_ROW=299
-    MAX_ROW=4
+    MAX_ROW=4 # delete this line when in production
 fi
 
 source ../../database.cfg
