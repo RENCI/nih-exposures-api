@@ -25,7 +25,7 @@ Used to populate max and avg statistical values for resolutions of 24 hour, 7 da
 
 Input parameters are TEXT for year: `_yr` and INT for row: `_r`
 
-```
+```sql
 -- populate statistical data for o3 and pmij
 -- o3: o3_avg_24, o3_max_24, o3_avg_7day, o3_max_7day, o3_avg_14day, o3_max_14day
 -- pmij: pmij_avg_24, pmij_max_24, pmij_avg_7day, pmij_max_7day, pmij_avg_14day, pmij_max_14day
