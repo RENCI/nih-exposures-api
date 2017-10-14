@@ -14,8 +14,6 @@ source ../../database.cfg
 YEAR=$1
 
 # validate min and max columns
-docker exec -u postgres ${DB_CONTAINER_NAME} psql ${DB_NAME} -c \
-    "select min_col, max_col from cmaq_grid_size('"${YEAR}"');"
 echo "min_col = ${MIN_ROW}, max_col = ${MAX_ROW}"
 read -p "Does this match expected?: [Y/n] " answer
 case ${answer:0:1} in

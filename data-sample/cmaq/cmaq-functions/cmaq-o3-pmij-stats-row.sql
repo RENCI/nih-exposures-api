@@ -20,11 +20,15 @@ BEGIN
     start_date := format('%s-01-01 00:00:00', _yr);
     end_date := format('%s-12-31 23:00:00', _yr);
     -- find cmaq grid size for year being calculated
-    SELECT
-      gs.min_row, gs.max_row, gs.min_col, gs.max_col
-    INTO
-      min_row, max_row, min_col, max_col
-    FROM cmaq_grid_size(_yr) gs;
+    min_row := 1;
+    min_col := 1;
+    IF _yr = '2010' THEN
+      max_row := 112;
+      max_col := 148;
+    ELSE
+      max_row := 299;
+      max_col := 459;
+    END IF;
     -- loop through all columns in row = _r
     --RAISE NOTICE 'Processing Row: %', _r;
     FOR c IN min_col..max_col LOOP
