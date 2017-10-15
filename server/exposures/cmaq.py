@@ -126,7 +126,7 @@ class CmaqExposures(object):
         utc_time = pytz.timezone('UTC').localize(datetime.strptime(kwargs.get('startDate'), "%Y-%m-%d"))
         start_time = tzone.localize(datetime.strptime(kwargs.get('startDate'), "%Y-%m-%d"))
         end_time = tzone.localize(datetime.strptime(kwargs.get('endDate'), "%Y-%m-%d"))
-        time_diff = utc_time - start_time
+        utc_offset = utc_time - start_time
         # retrieve query result for each lat,lon pair and add to data object
         lat_lon_set = kwargs.get('latLon').split(';')
         for lat_lon in lat_lon_set:
@@ -157,9 +157,9 @@ class CmaqExposures(object):
             # add query output to data object in JSON structured format
             for id, adj_date_time, exp in query:
                 # print(id, adj_date_time, exp)
-                data['scores'] += [{'dateTime': tzone.localize(adj_date_time + time_diff),
-                                    'latLon': lat_lon,
-                                    'score': str(cmaq_calc_score(kwargs.get('exposureType'),exp))}]
+                data['scores'].append({'dateTime': tzone.localize(adj_date_time + utc_offset),
+                                       'latLon': lat_lon,
+                                       'score': str(cmaq_calc_score(kwargs.get('exposureType'),exp))})
         return jsonify(data)
 
     def get_values(self, **kwargs):
@@ -198,7 +198,7 @@ class CmaqExposures(object):
         utc_time = pytz.timezone('UTC').localize(datetime.strptime(kwargs.get('startDate'), "%Y-%m-%d"))
         start_time = tzone.localize(datetime.strptime(kwargs.get('startDate'), "%Y-%m-%d"))
         end_time = tzone.localize(datetime.strptime(kwargs.get('endDate'), "%Y-%m-%d"))
-        time_diff = utc_time - start_time
+        utc_offset = utc_time - start_time
         # retrieve query result for each lat,lon pair and add to data object
         lat_lon_set = kwargs.get('latLon').split(';')
         for lat_lon in lat_lon_set:
@@ -228,8 +228,8 @@ class CmaqExposures(object):
             session.close()
             # add query output to data object in JSON structured format
             for id, adj_date_time, exp in query:
-                # print(id, adj_date_time, exp)
-                data['values'] += [{'dateTime': tzone.localize(adj_date_time + time_diff),
-                                    'latLon': lat_lon,
-                                    'value': str(exp)}]
+                print(id, adj_date_time, exp)
+                data['values'].append({'dateTime': tzone.localize(adj_date_time + utc_offset),
+                                       'latLon': lat_lon,
+                                       'value': str(exp)})
         return jsonify(data)

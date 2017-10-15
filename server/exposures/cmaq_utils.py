@@ -67,39 +67,35 @@ def latlon2rowcol(latitude, longitude, year):
             # find row and column in grid
             col_no = int(abs((xorig) - x1) / xcell) + 1
             row_no = int((abs(yorig) + y1) / ycell) + 1
-            
+
+    print(row_no,col_no)
     return row_no, col_no
 
 
 def cmaq_calc_score(exposure_type, value):
     # calculate exposure score based on exposure_docs criteria
+    score = ''
     if exposure_type == 'pm25':
         if value < 4.0:
             score = 1
-        elif 4.0 <= value < 7.06:
+        elif value < 7.06:
             score = 2
-        elif 7.06 <= value < 8.97:
+        elif value < 8.97:
             score = 3
-        elif 8.97 <= value < 11.37:
+        elif value < 11.37:
             score = 4
-        elif value >= 11.37:
-            score = 5
         else:
-            score = ''
+            score = 5
     elif exposure_type == 'o3':
         if value <= 0.050:
             score = 1
-        elif 0.050 < value <= 0.075:
+        elif value <= 0.075:
             score = 2
-        elif 0.075 < value <= 0.100:
+        elif value <= 0.100:
             score = 3
-        elif 0.100 < value <= 0.125:
+        elif value <= 0.125:
             score = 4
-        elif value > 0.125:
-            score = 5
         else:
-            score = ''
-    else:
-        score = ''
+            score = 5
 
     return score
