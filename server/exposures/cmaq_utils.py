@@ -68,7 +68,6 @@ def latlon2rowcol(latitude, longitude, year):
             col_no = int(abs((xorig) - x1) / xcell) + 1
             row_no = int((abs(yorig) + y1) / ycell) + 1
 
-    print(row_no,col_no)
     return row_no, col_no
 
 
