@@ -14,9 +14,9 @@ From the top level of the repository:
 
 ```
 $ cd server/
-$ virtualenv -p /usr/local/bin/python3 venv
+$ virtualenv -p /PATH_TO/python3 venv
 $ source venv/bin/activate
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
 Assuming `venv` is the name of the virtualenv directory the `codegen.py` files will be at: `/nih-exposures-api/server/venv/lib/python3.6/site-packages/sqlacodegen/codegen.py`.
@@ -48,9 +48,9 @@ From the top level of the repository:
 
 ```
 $ cd server/
-$ virtualenv -p /usr/local/bin/python3 venv
+$ virtualenv -p /PATH_TO/python3 venv
 $ source venv/bin/activate
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
 **ini/connexion.ini**

@@ -4,3 +4,4 @@ swagger-editor/swagger-editor/
 connexion.ini
 venv/
 __pycache__/
+data-sample/cmaq/cmaq-functions/cmaq-functions.sql
