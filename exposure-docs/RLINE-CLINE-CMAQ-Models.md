@@ -1,4 +1,4 @@
-# R-LINE, C-LINE-, & CMAQ Air Quality Models (AirQualityModels)
+# R-LINE, C-LINE-, & CMAQ Air Quality Models (RLINE-CLINE-CMAQ-Models)
 **Last Updated: 10/17/2017**
 
 **R-LINE**
