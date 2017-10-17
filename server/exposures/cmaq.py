@@ -94,10 +94,10 @@ class CmaqExposures(object):
         # exposureType, startDate, endDate, latLon, resolution = None, aggregation = None, utcOffset = None
         # 'UTC', 'US/Central', 'US/Eastern','US/Mountain', 'US/Pacific'
         tzone_dict = {'utc': 'UTC',
-                      'eastern': 'Eastern',
-                      'central': 'Central',
-                      'mountain': 'Mountain',
-                      'pacific': 'Pacific'}
+                      'eastern': 'US/Eastern',
+                      'central': 'US/Central',
+                      'mountain': 'US/Mountain',
+                      'pacific': 'US/Pacific'}
         # validate input from user
         is_valid, message = self.validate_parameters(**kwargs)
         if not is_valid:
@@ -118,15 +118,12 @@ class CmaqExposures(object):
         data = {}
         data['scores'] = []
         # set UTC offset as time zone parameter for query
-        if kwargs.get('utcOffset') == 'utc':
-            tzone = pytz.timezone(tzone_dict.get(kwargs.get('utcOffset')))
-        else:
-            tzone = pytz.timezone('US/' + tzone_dict.get(kwargs.get('utcOffset')))
+        dt = datetime.now()
+        utc_offset = int(str(pytz.timezone(tzone_dict.get(kwargs.get('utcOffset'))).localize(dt)
+                             - pytz.utc.localize(dt)).split(':')[0])
         # datetime objects for query and output adjustment
-        utc_time = pytz.timezone('UTC').localize(datetime.strptime(kwargs.get('startDate'), "%Y-%m-%d"))
-        start_time = tzone.localize(datetime.strptime(kwargs.get('startDate'), "%Y-%m-%d"))
-        end_time = tzone.localize(datetime.strptime(kwargs.get('endDate'), "%Y-%m-%d"))
-        utc_offset = utc_time - start_time
+        start_time = datetime.strptime(kwargs.get('startDate'), "%Y-%m-%d")
+        end_time = datetime.strptime(kwargs.get('endDate'), "%Y-%m-%d") + timedelta(hours=23)
         # retrieve query result for each lat,lon pair and add to data object
         lat_lon_set = kwargs.get('latLon').split(';')
         for lat_lon in lat_lon_set:
@@ -138,8 +135,8 @@ class CmaqExposures(object):
                 query = session.query(CmaqExposuresDatum.id,
                                       CmaqExposuresDatum.utc_date_time,
                                       getattr(CmaqExposuresDatum, exposure)). \
-                    filter(CmaqExposuresDatum.utc_date_time >= start_time). \
-                    filter(CmaqExposuresDatum.utc_date_time <= end_time + timedelta(hours=23)). \
+                    filter(CmaqExposuresDatum.utc_date_time >= start_time + timedelta(hours=utc_offset)). \
+                    filter(CmaqExposuresDatum.utc_date_time <= end_time + timedelta(hours=utc_offset)). \
                     filter(CmaqExposuresDatum.row == row). \
                     filter(CmaqExposuresDatum.col == col)
             else:
@@ -147,29 +144,28 @@ class CmaqExposures(object):
                 query = session.query(CmaqExposuresDatum.id,
                                       CmaqExposuresDatum.utc_date_time,
                                       getattr(CmaqExposuresDatum, exposure)). \
-                    filter(CmaqExposuresDatum.utc_date_time >= start_time). \
-                    filter(CmaqExposuresDatum.utc_date_time <= end_time). \
+                    filter(CmaqExposuresDatum.utc_date_time >= start_time + timedelta(hours=utc_offset)). \
+                    filter(CmaqExposuresDatum.utc_date_time <= end_time + timedelta(hours=utc_offset)). \
                     filter(CmaqExposuresDatum.row == row). \
                     filter(CmaqExposuresDatum.col == col). \
-                    filter(extract('hour', CmaqExposuresDatum.utc_date_time) ==
-                           ((start_time - utc_time).seconds // 3600))
+                    filter(extract('hour', CmaqExposuresDatum.utc_date_time) == utc_offset)
             session.close()
             # add query output to data object in JSON structured format
-            for id, adj_date_time, exp in query:
-                # print(id, adj_date_time, exp)
-                data['scores'].append({'dateTime': tzone.localize(adj_date_time + utc_offset),
+            for cmaq_id, cmaq_date_time, cmaq_exp in query:
+                # print(cmaq_id, cmaq_date_time, cmaq_exp)
+                data['scores'].append({'dateTime': cmaq_date_time,
                                        'latLon': lat_lon,
-                                       'score': str(cmaq_calc_score(kwargs.get('exposureType'),exp))})
+                                       'score': str(cmaq_calc_score(kwargs.get('exposureType'), cmaq_exp))})
         return jsonify(data)
 
     def get_values(self, **kwargs):
         # exposureType, startDate, endDate, latLon, resolution = None, aggregation = None, utcOffset = None
         # 'UTC', 'US/Central', 'US/Eastern','US/Mountain', 'US/Pacific'
         tzone_dict = {'utc': 'UTC',
-                      'eastern': 'Eastern',
-                      'central': 'Central',
-                      'mountain': 'Mountain',
-                      'pacific': 'Pacific'}
+                      'eastern': 'US/Eastern',
+                      'central': 'US/Central',
+                      'mountain': 'US/Mountain',
+                      'pacific': 'US/Pacific'}
         # validate input from user
         is_valid, message = self.validate_parameters(**kwargs)
         if not is_valid:
@@ -190,15 +186,12 @@ class CmaqExposures(object):
         data = {}
         data['values'] = []
         # set UTC offset as time zone parameter for query
-        if kwargs.get('utcOffset') == 'utc':
-            tzone = pytz.timezone(tzone_dict.get(kwargs.get('utcOffset')))
-        else:
-            tzone = pytz.timezone('US/' + tzone_dict.get(kwargs.get('utcOffset')))
+        dt = datetime.now()
+        utc_offset = int(str(pytz.timezone(tzone_dict.get(kwargs.get('utcOffset'))).localize(dt)
+                             - pytz.utc.localize(dt)).split(':')[0])
         # datetime objects for query and output adjustment
-        utc_time = pytz.timezone('UTC').localize(datetime.strptime(kwargs.get('startDate'), "%Y-%m-%d"))
-        start_time = tzone.localize(datetime.strptime(kwargs.get('startDate'), "%Y-%m-%d"))
-        end_time = tzone.localize(datetime.strptime(kwargs.get('endDate'), "%Y-%m-%d"))
-        utc_offset = utc_time - start_time
+        start_time = datetime.strptime(kwargs.get('startDate'), "%Y-%m-%d")
+        end_time = datetime.strptime(kwargs.get('endDate'), "%Y-%m-%d") + timedelta(hours=23)
         # retrieve query result for each lat,lon pair and add to data object
         lat_lon_set = kwargs.get('latLon').split(';')
         for lat_lon in lat_lon_set:
@@ -210,8 +203,8 @@ class CmaqExposures(object):
                 query = session.query(CmaqExposuresDatum.id,
                                       CmaqExposuresDatum.utc_date_time,
                                       getattr(CmaqExposuresDatum, exposure)). \
-                    filter(CmaqExposuresDatum.utc_date_time >= start_time). \
-                    filter(CmaqExposuresDatum.utc_date_time <= end_time + timedelta(hours=23)). \
+                    filter(CmaqExposuresDatum.utc_date_time >= start_time + timedelta(hours=utc_offset)). \
+                    filter(CmaqExposuresDatum.utc_date_time <= end_time + timedelta(hours=utc_offset)). \
                     filter(CmaqExposuresDatum.row == row). \
                     filter(CmaqExposuresDatum.col == col)
             else:
@@ -219,17 +212,16 @@ class CmaqExposures(object):
                 query = session.query(CmaqExposuresDatum.id,
                                       CmaqExposuresDatum.utc_date_time,
                                       getattr(CmaqExposuresDatum, exposure)).\
-                    filter(CmaqExposuresDatum.utc_date_time >= start_time).\
-                    filter(CmaqExposuresDatum.utc_date_time <= end_time).\
+                    filter(CmaqExposuresDatum.utc_date_time >= start_time + timedelta(hours=utc_offset)).\
+                    filter(CmaqExposuresDatum.utc_date_time <= end_time + timedelta(hours=utc_offset)).\
                     filter(CmaqExposuresDatum.row == row).\
                     filter(CmaqExposuresDatum.col == col).\
-                    filter(extract('hour', CmaqExposuresDatum.utc_date_time) ==
-                           ((start_time - utc_time).seconds // 3600))
+                    filter(extract('hour', CmaqExposuresDatum.utc_date_time) == utc_offset)
             session.close()
             # add query output to data object in JSON structured format
-            for id, adj_date_time, exp in query:
-                print(id, adj_date_time, exp)
-                data['values'].append({'dateTime': tzone.localize(adj_date_time + utc_offset),
+            for cmaq_id, cmaq_date_time, cmaq_exp in query:
+                # print(cmaq_id, cmaq_date_time, cmaq_exp)
+                data['values'].append({'dateTime': cmaq_date_time,
                                        'latLon': lat_lon,
-                                       'value': str(exp)})
+                                       'value': str(cmaq_exp)})
         return jsonify(data)
