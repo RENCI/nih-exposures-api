@@ -20,31 +20,18 @@ This web-based tool is currently capable of modeling any local area of the Unite
 Available measurements from C-LINE:
 
 NOx: Nitrogen oxides (sum of NO & NO2). Maximum: 200 ppb.
-
 NO2: Nitrogen dioxide. Maximum: 200 ppb.
-
 CO: Carbon monoxide. Maximum: 10,000 ppb.
-
 SO2: Sulfur dioxide. Maximum: 100 ppb.
-
 PM2.5: Particulate matter with aerodynamic diameter less than 2.5 microns. Maximum: 50 µg/m3.
-
 D-PM2.5: PM2.5 emissions from diesel vehicles only. Maximum: 50 µg/m3.
-
 EC2.5: The portion of PM2.5 consisting of elemental carbon (graphitic carbon and high molecular weight, nonvolatile organic compounds). Maximum: 50 µg/m3.
-
 OC2.5: The portion of PM2.5 consisting of organic carbon (particulate organic compounds containing more than 20 carbon atoms). Maximum: 50 µg/m3.
-
 PM10: Particulate matter with aerodynamic diameter less than 10 microns. Maximum: 50 µg/m3.
-
 Benzene. Maximum: 30 µg/m3.
-
 Formaldehyde. Maximum: 9.8 µg/m3.
-
 Acetaldehyde (systematic name: ethanal). Maximum: 9 µg/m3.
-
 Acrolein (systematic name: propenal). Maximum: 0.02 µg/m3.
-
 1,3-Butadiene. Maximum: 2 µg/m3.
 
 [Additional information](https://www.cmascenter.org/c-tools/)
