@@ -1,19 +1,21 @@
 # Green Team Exposure Data and Models
 
-**Last Update**: 06/16/2017
+**Last Update**: 10/17/2017
 
 Original document in DropBox: [GreenTeamExposureModels](https://www.dropbox.com/home/DataTranslatorProject/PostAwardDocs/SocioEnvExposureModels?preview=GreenTeamExposureModels_v4_04.20.17.docx) (requires credentials)
 
 ## Contents
 
 1. Exposure to Roadways ([road](roadways.md))
-2. Exposure to Airborne Particulates ([pm25](airborne-particulates.md))
-3. Exposure to Ozone ([o3](ozone.md))
-4. Exposure to Hazardous Waste ([haz_waste](hazardous-waste.md))
-5. Exposure to Crime/Violence ([crime](crime-violence.md))
-6. Exposure to Residential Density ([res_den](residential-density.md))
-7. Exposure to Poverty ([poverty](poverty.md))
-8. Exposure to Socioeconomic Status ([ses](socioeconomic-status.md))
+2. Issues Regarding Spatial Queries and Proximities ([SpatialProximity](https://github.com/RENCI/nih-exposures-api/blob/master/exposure-docs/SpatialProximity.md))
+3. R-LINE, C-LINE, & CMAQ Air Quality Models ([RLINE-CLINE-CMAQ-Models](https://github.com/RENCI/nih-exposures-api/blob/master/exposure-docs/RLINE-CLINE-CMAQ-Models.md))
+4. Exposure to Airborne Particulates ([pm25](airborne-particulates.md))
+5. Exposure to Ozone ([o3](ozone.md))
+6. Exposure to Hazardous Waste ([haz_waste](hazardous-waste.md))
+7. Exposure to Crime/Violence ([crime](crime-violence.md))
+8. Exposure to Residential Density ([res_den](residential-density.md))
+9. Exposure to Poverty ([poverty](poverty.md))
+10. Exposure to Socioeconomic Status ([ses](socioeconomic-status.md))
 
 
 ## General Spatio-temporal Exposure Model
