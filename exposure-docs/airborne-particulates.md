@@ -1,6 +1,6 @@
 # Exposure to Airborne Particulates (pm25)
 
-**Last Updated**: 06/162017
+**Last Updated**: 10/17/2017
 
 ## Overview
 
@@ -12,7 +12,7 @@
 
 ***Note** that PM2.5 will be the primary (socio)environmental exposure measure for the Translator Demonstration Use Case because the PM2.5-asthma linkage is well documented and the other exposures will present the same challenges, so PM2.5 provides a good stress test of our model and approach.
 
-Available measurements:
+Available measurements from C-LINE:
 
 - NOx: nitrogen oxides; maximum: 200 ppb
 - CO: carbon monoxide; maximum: 10,000 ppb
