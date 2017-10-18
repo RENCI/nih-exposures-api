@@ -4,6 +4,8 @@ ReSTful data service implemented in [Swagger](https://swagger.io) using [OpenAPI
 
 See [README.md](exposure-docs/README.md) in `exposure-docs/` for detailed information on supported exposures and return types
 
+Public version running at: [https://exposures.renci.org/v1/ui/#/default](https://exposures.renci.org/v1/ui/#/default)
+
 ## Development Environment
 
 ### Assumptions
