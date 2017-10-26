@@ -106,7 +106,7 @@ class CmaqExposures(object):
         if kwargs.get('exposureType') == 'pm25':
             exposure = 'pmij'
         else:
-            exposure = 'o3'
+            exposure = kwargs.get('exposureType')
         # set resolution and aggregate to query
         if kwargs.get('resolution') == 'day':
             exposure += '_' + kwargs.get('aggregation') + '_24'
@@ -174,7 +174,7 @@ class CmaqExposures(object):
         if kwargs.get('exposureType') == 'pm25':
             exposure = 'pmij'
         else:
-            exposure = 'o3'
+            exposure = kwargs.get('exposureType')
         # set resolution and aggregate to query
         if kwargs.get('resolution') == 'day':
             exposure += '_' + kwargs.get('aggregation') + '_24'

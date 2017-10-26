@@ -1,5 +1,5 @@
 -- drop prior function if it exists
-DROP FUNCTION cmaq_o3_pmij_stats_row(TEXT, INT);
+DROP FUNCTION IF EXISTS cmaq_o3_pmij_stats_row(TEXT, INT);
 
 -- populate statistical data for o3 and pmij
 -- o3: o3_avg_24, o3_max_24, o3_avg_7day, o3_max_7day, o3_avg_14day, o3_max_14day

@@ -11,13 +11,13 @@ metadata = Base.metadata
 class CmaqExposuresDatum(Base):
     __tablename__ = 'cmaq_exposures_data'
     __table_args__ = (
-        Index('col_row_date', 'col', 'row', 'utc_date_time', unique=True),
+        Index('cmaq_col_row_date', 'col', 'row', 'utc_date_time', unique=True),
     )
 
     id = Column(Integer, primary_key=True, server_default=text("nextval('cmaq_exposures_data_id_seq'::regclass)"))
     col = Column(Integer)
     row = Column(Integer)
-    utc_date_time = Column(DateTime)
+    utc_date_time = Column(DateTime, index=True)
     o3 = Column(Float(53))
     o3_avg_24 = Column(Float(53))
     o3_max_24 = Column(Float(53))
@@ -32,6 +32,27 @@ class CmaqExposuresDatum(Base):
     pmij_max_7day = Column(Float(53))
     pmij_avg_14day = Column(Float(53))
     pmij_max_14day = Column(Float(53))
+    form = Column(Float(53))
+    form_avg_24 = Column(Float(53))
+    form_max_24 = Column(Float(53))
+    form_avg_7day = Column(Float(53))
+    form_max_7day = Column(Float(53))
+    form_avg_14day = Column(Float(53))
+    form_max_14day = Column(Float(53))
+    ald2 = Column(Float(53))
+    ald2_avg_24 = Column(Float(53))
+    ald2_max_24 = Column(Float(53))
+    ald2_avg_7day = Column(Float(53))
+    ald2_max_7day = Column(Float(53))
+    ald2_avg_14day = Column(Float(53))
+    ald2_max_14day = Column(Float(53))
+    aldx = Column(Float(53))
+    aldx_avg_24 = Column(Float(53))
+    aldx_max_24 = Column(Float(53))
+    aldx_avg_7day = Column(Float(53))
+    aldx_max_7day = Column(Float(53))
+    aldx_avg_14day = Column(Float(53))
+    aldx_max_14day = Column(Float(53))
 
 
 class CmaqExposuresList(Base):
