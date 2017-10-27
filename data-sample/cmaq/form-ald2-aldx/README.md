@@ -12,19 +12,21 @@ Run the `create_cmaq_csv-2010.py` and `create_cmaq_csv-2011.py` scripts against 
 
 ### Update database
 
+**NOTE**: 
+
+- The Exposures REST services should be taken offline while updating the underlying database as the schema will be changing and concurrent queries to the database could disrupt the creation of necessary additional columns.
+
 From existing database with only **pmij** and **o3** entries, the user will need to:
 
-1. Run the `form-ald2-aldx-alter-table.sh` script (or it's non-docker equivelant) to update the datbase schema
-2. Run the `form-ald2-aldx-update-table.sh` script (or it's non-docker equivelant) to populate `form`, `ald2` and `aldx` for 2010 and 2011
-	- will need to repeated across all 2010 and 2011 csv output files 
+1. Run the `form-ald2-aldx-alter-table.sh` script (or it's non-docker equivalent) to update the datbase schema
+2. Run the `form-ald2-aldx-update-table.sh` script (or it's non-docker equivalent) to populate `form`, `ald2` and `aldx` for 2010 and 2011
+	- will need to be repeated across all 2010 and 2011 csv output files 
 3. Load the `cmaq_form_ald2_aldx_stats_row` function from `form-ald2-aldx-stats-row.sql` into PostgreSQL
 4. Run the `run-form-ald2-aldx-by-row.sh` script for each year
 	- `$ run-form-ald2-aldx-by-row.sh 2010` 
 	- `$ run-form-ald2-aldx-by-row.sh 2011` 
 
 	
-### Note
+### Programmers note
 
-The underlying data model python uses needs to be updated anytime there is a change to the database schema.
-
-This is reflected as the `server/models.py` file and the instructions to do this are in the `server/README.md` file.
+The underlying data model python uses needs to be updated anytime there is a change to the database schema. With the addition of new columns to the **cmaq\_exposures\_data** table, there will be the need to regenerate the `server/models.py` file. Instructions to do this are in the `server/README.md` file.

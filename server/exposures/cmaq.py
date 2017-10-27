@@ -107,6 +107,8 @@ class CmaqExposures(object):
             exposure = 'pmij'
         else:
             exposure = kwargs.get('exposureType')
+            if exposure in ['form', 'ald2', 'aldx']:
+                return ('Not Implemented', 501, {'x-error': 'Not Implemented: form,ald2,aldx'})
         # set resolution and aggregate to query
         if kwargs.get('resolution') == 'day':
             exposure += '_' + kwargs.get('aggregation') + '_24'
