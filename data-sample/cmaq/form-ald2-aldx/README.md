@@ -15,6 +15,7 @@ Run the `create_cmaq_csv-2010.py` and `create_cmaq_csv-2011.py` scripts against 
 **NOTE**: 
 
 - The Exposures REST services should be taken offline while updating the underlying database as the schema will be changing and concurrent queries to the database could disrupt the creation of necessary additional columns.
+- Scripts referenced below will need to be modified to match your deployement enviornment and are initially written using the docker based database as the target.
 
 From existing database with only **pmij** and **o3** entries, the user will need to:
 

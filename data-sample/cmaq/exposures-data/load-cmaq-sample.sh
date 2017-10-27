@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
+# Local development sample data from 2011 only
+# Production adaptation will vary significantly from this
+
 source ../../database.cfg
 
-# load cmaq-2010-2011.csv and cmaq_sample.sql to backend container:
+# load cmaq-sample-2011.csv and cmaq_sample.sql to backend container:
 docker cp cmaq-sample-2011.csv ${DB_CONTAINER_NAME}:/cmaq-sample.csv
 docker cp cmaq-sample.sql ${DB_CONTAINER_NAME}:/cmaq-sample.sql
 
