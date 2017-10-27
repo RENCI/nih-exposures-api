@@ -10,6 +10,9 @@ cmaq2010:
     data-vars: # enter data vars of interest in CMAQ 2010 netCDF files
        - O3
        - PMIJ
+       - FORM
+       - ALD2
+       - ALDX
 cmaq2011:
     netcdf-path: /projects/datatrans/CMAQ/2011/raw/  # must end with /
     netcdf-file-name: CCTM_CMAQ_v51_Release_Oct23_NoDust_ed_emis_combine.aconc.01
@@ -19,3 +22,6 @@ cmaq2011:
     data-vars: # enter data vars of interest in CMAQ 2011 netCDF files
        - O3
        - PMIJ
+       - FORM
+       - ALD2
+       - ALDX

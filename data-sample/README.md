@@ -4,6 +4,8 @@ Sample data is provided for development purposes and should retain the same form
 
 All scripts herein assume the use of the development [database](../database). These scripts should be used as a guide for establishing similar ingest scripts in the production enviornment.
 
+**Note**: These scripts can be modified for use within a production environment, and will be left to the user to adapt to their infrastructure.
+
 ### Configuration and Database Setup
 
 **Configuration**

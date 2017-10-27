@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Local development sample data from 2011 only
+# Production adaptation will vary significantly from this
+
 source ../../database.cfg
 
 # create cmaq-functions.sql file
@@ -20,10 +23,6 @@ docker cp cmaq-functions.sql ${DB_CONTAINER_NAME}:/cmaq-functions.sql
 docker exec -u postgres ${DB_CONTAINER_NAME} psql ${DB_NAME} -f cmaq-functions.sql
 
 # wait for indices to populate
-#echo "wait 20s for indices to populate..."
-#sleep 20s
-#docker exec -u postgres ${DB_CONTAINER_NAME} psql ${DB_NAME} -c "SELECT * FROM cmaq_grid_size('2011');"
-#docker exec -u postgres ${DB_CONTAINER_NAME} psql ${DB_NAME} -c "SELECT * FROM cmaq_o3_pmij_stats('2011');"
-#docker exec -u postgres ${DB_CONTAINER_NAME} psql ${DB_NAME} -c "SELECT * FROM cmaq_exposures_data ORDER BY utc_date_time LIMIT 10 OFFSET 360;"
+echo "The postgres functions can now be used to populate statistical information"
 
 exit 0;
