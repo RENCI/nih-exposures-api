@@ -14,7 +14,6 @@ cmaq2010:
     netcdf-path: /projects/datatrans/CMAQ/2010/raw/  # must end with /
     netcdf-file-name: CCTM_v502_with_CDC2010_Linux2_x86_64intel.ACONC.20100101.combine_base 
     netcdf-file-pattern-match: .*\.combine_base
-    netcdf-file-date-partno: 2 
     data-vars: # enter data vars of interest in CMAQ 2010 netCDF files or 'ALL_OF_THEM' for all
        - ALL_OF_THEM
 cmaq2011:
