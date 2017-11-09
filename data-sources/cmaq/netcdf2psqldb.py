@@ -1,5 +1,6 @@
 import pandas as pd
 import xarray as xr
+import numpy as np
 import datetime
 import yaml
 import os
@@ -34,9 +35,9 @@ class cmaq_db:
             "user=" + self.user + " " +
             "password=" + self.password + " " +
             "dbname=" + self.dbname)
-        self.cur = conn.cur
+        self.cur = self.conn.cursor()
         
-        return cur
+        return self.cur
         
     def close(self):
         self.conn.commit()
@@ -126,6 +127,8 @@ cur = db.connect()
 
 table_name = db.get_table_name()
 all_variables = cmaq_ds.get_set_union_varlist()
+
+# TODO: Need to add avg and max columns??
 sql_str = 'CREATE TABLE IF NOT EXISTS ' + table_name + ' (\nid SERIAL UNIQUE PRIMARY KEY,\n' \
     'col INT,\nrow INT,\nutc_date_time TIMESTAMP' 
 for variable in all_variables:
@@ -139,9 +142,11 @@ cur.execute(sql_str)
 years = cmaq_ds.get_cmaq_years()
 # for each year of CMAQ data ...
 for year in years:
+    print("Processing " + str(year) + " CMAQ data ...")
+    
     variables = cmaq_ds.get_datavars_by_year(str(year))
-    print(variables)
     files = cmaq_ds.get_netcdf_filenames_by_year(str(year))
+    
     # for each dataset in that year ...
     for file in files:
         ds = cmaq_ds.get_dataset_by_filename(file)
@@ -178,11 +183,11 @@ for year in years:
                     day_slice = tmp_day_slice
                     
                 var_str = ', '.join(variables) 
-                sql_str = '"INSERT INTO ' + table_name + ' (col, row, utc_date_time, ' + var_str + \
+                sql_str = 'INSERT INTO ' + table_name + ' (col, row, utc_date_time, ' + var_str + \
                       ') VALUES (%s, %s, %s, '
                 for i in range(len(variables)-1):
                     sql_str += '%s, '
-                sql_str += '%s)"'
+                sql_str += '%s)'
 
                 # TODO: if TSTEP starts at >0 need to insert first
                 # valid data for missing time slots??
@@ -190,12 +195,17 @@ for year in years:
                 # Go through each hour in this day slice to insert a row in the DB
                 for i in range(tstep_len):
                     hour_slice = day_slice.isel(TSTEP=i)
-                    sql_values = [col+1, row+1, dates[i].data]
+                    
+                    # convert numpy date type to python native
+                    ns = 1e-9 # number of seconds in a nanosecond
+                    dts = datetime.datetime.utcfromtimestamp(dates[i].data.astype(int) * ns)
+                    
+                    sql_values = [np.asscalar(col)+1, np.asscalar(row)+1, dts]
                     for var in variables:
                         var_value = hour_slice.data_vars[var].values.item(0)
                         sql_values.append(var_value)
 
                     cur.execute(sql_str, sql_values)
-                    #print(sql_str)
-                    #print(sql_values)
+
 db.close()
+print("Done!")
