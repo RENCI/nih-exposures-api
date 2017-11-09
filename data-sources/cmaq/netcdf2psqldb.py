@@ -177,7 +177,6 @@ for year in years:
                     # doesn't matter - ignore
                     day_slice = tmp_day_slice
                     
-                d = 0
                 var_str = ', '.join(variables) 
                 sql_str = '"INSERT INTO ' + table_name + ' (col, row, utc_date_time, ' + var_str + \
                       ') VALUES (%s, %s, %s, '
