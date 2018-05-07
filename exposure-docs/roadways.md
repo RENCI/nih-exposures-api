@@ -32,6 +32,8 @@ Exposure scores calculated [1,3,4] as:
 
 https://github.com/mjstealey/datatranslator/blob/develop/exposure_docs/references.md
 
+https://github.com/RENCI/nih-exposures-api/blob/master/exposure-docs/references2.md
+
 ## Implemented as
 
 Code:
